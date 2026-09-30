@@ -23,9 +23,10 @@ class Diskgraph < Formula
 
   def install
     # The release archive wraps the binaries in a target-named directory.
-    prefix = "diskgraph-#{Hardware::CPU.intel? ? "x86_64" : "aarch64"}-apple-darwin"
-    bin.install "#{prefix}/bin/diskgraph"
-    bin.install "#{prefix}/bin/diskgraph-mcp"
+    # (Not named `prefix`: Homebrew defines that as the install prefix.)
+    archive = "diskgraph-#{Hardware::CPU.intel? ? "x86_64" : "aarch64"}-apple-darwin"
+    bin.install "#{archive}/bin/diskgraph"
+    bin.install "#{archive}/bin/diskgraph-mcp"
   end
 
   test do
