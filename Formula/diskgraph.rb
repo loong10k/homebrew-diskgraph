@@ -1,0 +1,43 @@
+# DiskGraph — a Rust file-relationship engine for AI agents and PruneX.
+#
+# Installs the `diskgraph` CLI and the `diskgraph-mcp` MCP server from the
+# project's signed-by-digest GitHub releases. The two binaries are expected
+# in the release archive; `test do` runs the CLI, so a broken archive fails
+# the install instead of landing on a user's PATH.
+class Diskgraph < Formula
+  desc "File-relationship engine for AI agents: disk usage, ownership, evidence, history"
+  homepage "https://github.com/loong10k/diskgraph"
+  url "https://github.com/loong10k/diskgraph/releases/download/v0.1.0/diskgraph-aarch64-apple-darwin.tar.gz"
+  version "0.1.0"
+  license "MIT"
+
+  on_arm do
+    url "https://github.com/loong10k/diskgraph/releases/download/v0.1.0/diskgraph-aarch64-apple-darwin.tar.gz"
+    sha256 "REPLACE_ARM64_SHA256"
+  end
+
+  on_intel do
+    url "https://github.com/loong10k/diskgraph/releases/download/v0.1.0/diskgraph-x86_64-apple-darwin.tar.gz"
+    sha256 "REPLACE_X86_64_SHA256"
+  end
+
+  def install
+    bin.install "diskgraph"
+    bin.install "diskgraph-mcp"
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/diskgraph --version")
+
+    # A full scan/query round trip on a throwaway tree, so the formula only
+    # passes when the installed CLI can actually index and answer.
+    (testpath/"tree").mkpath
+    (testpath/"tree/data.bin").write("x" * 1024)
+    system bin/"diskgraph", "scope", "add",
+           "--root", testpath/"tree", "--data-dir", testpath/"db", "--json"
+    scope = JSON.parse(shell_output("#{bin}/diskgraph scope list --data-dir #{testpath}/db --json"))["data"]["scopes"].first
+    system bin/"diskgraph", "index", "--scope", scope,
+           "--data-dir", testpath/"db", "--wait", "--json"
+    assert_match "completed", shell_output("#{bin}/diskgraph node --scope #{scope} --data-dir #{testpath}/db --json")
+  end
+end
