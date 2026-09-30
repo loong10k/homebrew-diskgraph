@@ -7,18 +7,18 @@
 class Diskgraph < Formula
   desc "File-relationship engine for AI agents: disk usage, ownership, evidence, history"
   homepage "https://github.com/loong10k/diskgraph"
-  url "https://github.com/loong10k/diskgraph/releases/download/v0.1.0/diskgraph-aarch64-apple-darwin.tar.gz"
-  version "0.1.0"
+  url "https://github.com/loong10k/diskgraph/releases/download/v0.2.0/diskgraph-aarch64-apple-darwin.tar.gz"
+  version "0.2.0"
   license "MIT"
 
   on_arm do
-    url "https://github.com/loong10k/diskgraph/releases/download/v0.1.0/diskgraph-aarch64-apple-darwin.tar.gz"
-    sha256 "6b122048748a21436eec960a6505aeb9eb20a741bc8e9f6b092e15041a1af16e"
+    url "https://github.com/loong10k/diskgraph/releases/download/v0.2.0/diskgraph-aarch64-apple-darwin.tar.gz"
+    sha256 "906b7ca001f5c3168a24897a6596f9e74fc4ddf189edd12e9a6b4d11712057c3"
   end
 
   on_intel do
-    url "https://github.com/loong10k/diskgraph/releases/download/v0.1.0/diskgraph-x86_64-apple-darwin.tar.gz"
-    sha256 "7113438b8f60e7c37f706e9dc57b205c45ef36a4b492d3f8918fd90de385f0f7"
+    url "https://github.com/loong10k/diskgraph/releases/download/v0.2.0/diskgraph-x86_64-apple-darwin.tar.gz"
+    sha256 "fa0f657db2d06e34ea01b9cc886f980395a79bad7737f6ab424cc52788032ba6"
   end
 
   def install
