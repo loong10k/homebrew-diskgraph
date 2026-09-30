@@ -22,11 +22,10 @@ class Diskgraph < Formula
   end
 
   def install
-    # The release archive wraps the binaries in a target-named directory.
-    # (Not named `prefix`: Homebrew defines that as the install prefix.)
-    archive = "diskgraph-#{Hardware::CPU.intel? ? "x86_64" : "aarch64"}-apple-darwin"
-    bin.install "#{archive}/bin/diskgraph"
-    bin.install "#{archive}/bin/diskgraph-mcp"
+    # Homebrew strips the archive's single top-level directory when staging,
+    # so the binaries land at bin/ inside the keg.
+    bin.install "bin/diskgraph"
+    bin.install "bin/diskgraph-mcp"
   end
 
   test do
