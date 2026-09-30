@@ -22,8 +22,10 @@ class Diskgraph < Formula
   end
 
   def install
-    bin.install "diskgraph"
-    bin.install "diskgraph-mcp"
+    # The release archive wraps the binaries in a target-named directory.
+    prefix = "diskgraph-#{Hardware::CPU.intel? ? "x86_64" : "aarch64"}-apple-darwin"
+    bin.install "#{prefix}/bin/diskgraph"
+    bin.install "#{prefix}/bin/diskgraph-mcp"
   end
 
   test do
