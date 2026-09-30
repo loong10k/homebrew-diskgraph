@@ -44,6 +44,8 @@ class Diskgraph < Formula
     refute_nil scope, "scope add produced no scope id: #{listing}"
     system bin/"diskgraph", "index", "--scope", scope,
            "--data-dir", testpath/"db", "--wait", "--json"
-    assert_match "completed", shell_output("#{bin}/diskgraph node --scope #{scope} --data-dir #{testpath}/db --json")
+    answer = shell_output("#{bin}/diskgraph node --scope #{scope} --data-dir #{testpath}/db --json")
+    assert_match "\"ok\":true", answer
+    assert_match "\"complete\":true", answer
   end
 end
