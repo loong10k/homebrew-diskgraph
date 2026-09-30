@@ -32,12 +32,16 @@ class Diskgraph < Formula
     assert_match version.to_s, shell_output("#{bin}/diskgraph --version")
 
     # A full scan/query round trip on a throwaway tree, so the formula only
-    # passes when the installed CLI can actually index and answer.
+    # passes when the installed CLI can actually index and answer. (Scope id
+    # is pulled from the JSON text by pattern: the formula sandbox has no
+    # json library and must not depend on one.)
     (testpath/"tree").mkpath
     (testpath/"tree/data.bin").write("x" * 1024)
     system bin/"diskgraph", "scope", "add",
            "--root", testpath/"tree", "--data-dir", testpath/"db", "--json"
-    scope = JSON.parse(shell_output("#{bin}/diskgraph scope list --data-dir #{testpath}/db --json"))["data"]["scopes"].first
+    listing = shell_output("#{bin}/diskgraph scope list --data-dir #{testpath}/db --json")
+    scope = listing[/scope-[0-9a-f-]{36}/]
+    refute_nil scope, "scope add produced no scope id: #{listing}"
     system bin/"diskgraph", "index", "--scope", scope,
            "--data-dir", testpath/"db", "--wait", "--json"
     assert_match "completed", shell_output("#{bin}/diskgraph node --scope #{scope} --data-dir #{testpath}/db --json")
