@@ -23,7 +23,7 @@ trip, so a broken archive fails the install instead of landing on PATH.
 | :--- | :--- |
 | Homebrew (this tap) | `brew install partme-ai/diskgraph/diskgraph` |
 | npm (thin installer) | `npx -y diskgraph --version` |
-| cargo | `cargo install diskgraph-cli` |
+| source | `cargo install --path crates/diskgraph-cli` (from a checkout) |
 | Windows | `winget install loong10k.DiskGraph` / `scoop install diskgraph` |
 
 All channels resolve to the same release artifacts.
