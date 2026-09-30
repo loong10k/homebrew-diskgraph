@@ -13,12 +13,12 @@ class Diskgraph < Formula
 
   on_arm do
     url "https://github.com/loong10k/diskgraph/releases/download/v0.1.0/diskgraph-aarch64-apple-darwin.tar.gz"
-    sha256 "REPLACE_ARM64_SHA256"
+    sha256 "6b122048748a21436eec960a6505aeb9eb20a741bc8e9f6b092e15041a1af16e"
   end
 
   on_intel do
     url "https://github.com/loong10k/diskgraph/releases/download/v0.1.0/diskgraph-x86_64-apple-darwin.tar.gz"
-    sha256 "REPLACE_X86_64_SHA256"
+    sha256 "7113438b8f60e7c37f706e9dc57b205c45ef36a4b492d3f8918fd90de385f0f7"
   end
 
   def install
