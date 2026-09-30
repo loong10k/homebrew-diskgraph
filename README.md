@@ -5,8 +5,15 @@ file-relationship engine for AI agents and PruneX.
 
 ```bash
 brew tap partme-ai/diskgraph
-brew install diskgraph
+brew install diskgraph            # or: brew install partme-ai/diskgraph/diskgraph
 ```
+
+Verified against Homebrew 7.0.7: the two-step form above resolves to
+`partme-ai/diskgraph/diskgraph: stable 0.1.0`. Note that `brew install
+partme-ai/diskgraph` alone does NOT work — Homebrew reads the second
+path segment as a *formula* name, not a tap, so the tap name must be
+prefixed with `homebrew-` and the formula name spelled out (or omitted
+only after the tap exists locally, as in the first command).
 
 Installs two binaries:
 
